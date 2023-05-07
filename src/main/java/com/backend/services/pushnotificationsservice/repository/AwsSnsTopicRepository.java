@@ -71,7 +71,6 @@ public class AwsSnsTopicRepository {
 
     private String getFormattedNotification(Notification notification ) {
         //SNS needs stringified JSON. Push notifications won't work with any changes in this format
-        System.out.printf("{\"default\":\"%s\", \"GCM\": \"%s\"}", notification.body(), createGcmMessage(notification));
         return String.format("{\"default\":\"%s\", \"GCM\": \"%s\"}", notification.body(), createGcmMessage(notification));
     }
 
