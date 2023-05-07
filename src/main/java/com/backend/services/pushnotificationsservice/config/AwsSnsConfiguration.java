@@ -1,6 +1,7 @@
 package com.backend.services.pushnotificationsservice.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.*;
@@ -12,13 +13,6 @@ import java.net.URISyntaxException;
 @Configuration
 @RequiredArgsConstructor
 public class AwsSnsConfiguration {
-
-    private final String defaultVivyTopicArn;
-
-    @Bean
-    public String defaultVivyTopicArn() {
-        return defaultVivyTopicArn;
-    }
 
     @Bean
     public SnsAsyncClient snsAsyncClient() throws URISyntaxException {
