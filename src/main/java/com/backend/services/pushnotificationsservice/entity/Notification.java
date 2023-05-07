@@ -6,6 +6,5 @@ import lombok.Builder;
 public record Notification(
         String title,
         String body,
-        String imageUrl,
-        String deepLink
+        String imageUrl
 ) {}
