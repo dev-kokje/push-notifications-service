@@ -15,15 +15,15 @@ public class AwsSnsDeviceRepository {
     private final SnsAsyncClient snsAsyncClient;
 
     @Value("${aws.sns.platform_application.gcm}")
-    private final String GCM_PLATFORM_APPLICATION_ARN;
+    private String GCM_PLATFORM_APPLICATION_ARN;
 
     @Value("${aws.sns.platform_application.apns}")
-    private final String APNS_PLATFORM_APPLICATION_ARN;
+    private String APNS_PLATFORM_APPLICATION_ARN;
 
     public Mono<String> registerDevice(String deviceToken, String deviceType) {
         var request = CreatePlatformEndpointRequest.builder()
                 .token(deviceToken)
-                .platformApplicationArn(deviceType.equals("APPLE") ? APNS_PLATFORM_APPLICATION_ARN : GCM_PLATFORM_APPLICATION_ARN)
+                .platformApplicationArn(deviceType.equals("IOS") ? APNS_PLATFORM_APPLICATION_ARN : GCM_PLATFORM_APPLICATION_ARN)
                 .build();
 
         return Mono.fromFuture(snsAsyncClient.createPlatformEndpoint(request))

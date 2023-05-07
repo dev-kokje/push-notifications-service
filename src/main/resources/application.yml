@@ -4,5 +4,5 @@ server:
 aws:
   sns:
     platform_application:
-      gcm:
-      apns:
+      gcm: "arn:aws:sns:eu-central-1:144583872511:app/GCM/demo-application-android"
+      apns: "arn:aws:sns:eu-central-1:144583872511:app/GCM/demo-application-ios"

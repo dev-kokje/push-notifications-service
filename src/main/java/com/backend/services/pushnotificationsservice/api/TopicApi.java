@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/topic")
+@RequestMapping("/topics")
 @RequiredArgsConstructor
 public class TopicApi {
 
@@ -21,8 +21,9 @@ public class TopicApi {
                 .getAll();
     }
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public Mono<String> createNewTopic(@RequestParam(name = "displayName") String displayName) {
+        System.out.println("Topic name - " + displayName);
         return awsSnsTopicRepository
                 .save(displayName);
     }

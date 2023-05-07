@@ -61,6 +61,7 @@ public class AwsSnsTopicRepository {
     public Mono<String> publishMessage(String topicArn, Notification notification) {
         var request = PublishRequest.builder()
                 .targetArn(topicArn)
+                .messageStructure("json")
                 .message(getFormattedNotification(notification))
                 .build();
 
@@ -70,7 +71,8 @@ public class AwsSnsTopicRepository {
 
     private String getFormattedNotification(Notification notification ) {
         //SNS needs stringified JSON. Push notifications won't work with any changes in this format
-        return String.format("{\"GCM\": \"%s\"}", createGcmMessage(notification));
+        System.out.printf("{\"default\":\"%s\", \"GCM\": \"%s\"}", notification.body(), createGcmMessage(notification));
+        return String.format("{\"default\":\"%s\", \"GCM\": \"%s\"}", notification.body(), createGcmMessage(notification));
     }
 
     private String createGcmMessage(Notification notification) {
@@ -81,7 +83,7 @@ public class AwsSnsTopicRepository {
             notificationMessage.put("title", notification.title());
             notificationMessage.put("body", notification.body());
 
-            if(!notification.imageUrl().isEmpty()) {
+            if(notification.imageUrl() != null && !notification.imageUrl().isEmpty()) {
                 notificationMessage.put("image", notification.imageUrl());
             }
 
